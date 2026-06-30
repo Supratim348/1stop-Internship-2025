@@ -8,7 +8,9 @@
     <link rel="stylesheet" href="vendor/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="icon" href="assets/money-bag.png">
     <style>
-        * { user-select: none; }
+        * { 
+            user-select: none; 
+        }
     </style>
 </head>
 <body class="bg-light">
@@ -21,7 +23,6 @@
                 Expense Tracker
             </a>
             <div class="d-flex align-items-center">
-                <span class="text-muted small me-3 d-none d-md-inline">Internal Accounting Tool</span>
                 <button class="btn btn-primary shadow-sm" onclick="showExpenseModal()">
                     <i class="bi bi-plus-lg me-2"></i>New Expense
                 </button>
@@ -40,9 +41,6 @@
                             <div class="col-md-6">
                                 <p class="text-uppercase text-muted fw-semibold small mb-1 ls-1">Total Cumulative Spent</p>
                                 <div class="display-6 fw-bold text-dark" id="totalSpent">$0.00</div>
-                            </div>
-                            <div class="col-md-6 text-md-end">
-                                <p class="text-muted small mb-0">Calculated from local browser storage</p>
                             </div>
                         </div>
                     </div>
