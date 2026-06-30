@@ -44,3 +44,7 @@ No build step or dependencies to install — every project runs directly in the 
 ## License
 
 For educational/internship purposes.
+
+## Certificate
+
+![Certificate](Project-1 Expense Tracker/assets/Internship_Certificate.jpg)
