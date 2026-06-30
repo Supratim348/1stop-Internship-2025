@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator | Pro v2.0</title>
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.css">
+    <style>
+        * { user-select: none; }
+        .calc-btn { height: 60px; font-size: 1.1rem; }
+        #number_div { font-size: 2rem; font-weight: 300; }
+        #expression { font-size: 0.85rem; min-height: 22px; }
+    </style>
+</head>
+<body class="bg-secondary bg-opacity-10 min-vh-100 d-flex align-items-center justify-content-center">
+
+    <div class="card shadow border-0 p-3" style="width: 360px;">
+
+        <!-- Display -->
+        <div class="bg-dark text-white rounded-3 p-3 mb-3 text-end">
+            <div id="expression" class="text-primary small mb-1">&nbsp;</div>
+            <div id="number_div" class="fw-light">0</div>
+        </div>
+
+        <input type="hidden" id="savedExpression">
+
+        <!-- Button Grid -->
+        <div class="row g-2">
+
+            <!-- Row 1 -->
+            <div class="col-3">
+                <button class="btn btn-outline-secondary calc-btn w-100" data-event_key="NumLock">±</button>
+            </div>
+            <div class="col-3">
+                <button class="btn btn-danger calc-btn w-100" data-event_key="Delete">CE</button>
+            </div>
+            <div class="col-3">
+                <button class="btn btn-danger calc-btn w-100" data-event_key="Backspace">DEL</button>
+            </div>
+            <div class="col-3">
+                <button class="btn btn-outline-primary calc-btn w-100" data-event_key="/">÷</button>
+            </div>
+
+            <!-- Row 2 -->
+            <div class="col-3">
+                <button class="btn btn-secondary calc-btn w-100" data-event_key="7">7</button>
+            </div>
+            <div class="col-3">
+                <button class="btn btn-secondary calc-btn w-100" data-event_key="8">8</button>
+            </div>
+            <div class="col-3">
+                <button class="btn btn-secondary calc-btn w-100" data-event_key="9">9</button>
+            </div>
+            <div class="col-3">
+                <button class="btn btn-outline-primary calc-btn w-100" data-event_key="*">×</button>
+            </div>
+
+            <!-- Row 3 -->
+            <div class="col-3">
+                <button class="btn btn-secondary calc-btn w-100" data-event_key="4">4</button>
+            </div>
+            <div class="col-3">
+                <button class="btn btn-secondary calc-btn w-100" data-event_key="5">5</button>
+            </div>
+            <div class="col-3">
+                <button class="btn btn-secondary calc-btn w-100" data-event_key="6">6</button>
+            </div>
+            <div class="col-3">
+                <button class="btn btn-outline-primary calc-btn w-100" data-event_key="-">−</button>
+            </div>
+
+            <!-- Row 4 -->
+            <div class="col-3">
+                <button class="btn btn-secondary calc-btn w-100" data-event_key="1">1</button>
+            </div>
+            <div class="col-3">
+                <button class="btn btn-secondary calc-btn w-100" data-event_key="2">2</button>
+            </div>
+            <div class="col-3">
+                <button class="btn btn-secondary calc-btn w-100" data-event_key="3">3</button>
+            </div>
+            <div class="col-3">
+                <button class="btn btn-outline-primary calc-btn w-100" data-event_key="+">+</button>
+            </div>
+
+            <!-- Row 5 -->
+            <div class="col-6">
+                <button class="btn btn-secondary calc-btn w-100" data-event_key="0">0</button>
+            </div>
+            <div class="col-3">
+                <button class="btn btn-secondary calc-btn w-100" data-event_key=".">.</button>
+            </div>
+            <div class="col-3">
+                <button class="btn btn-primary calc-btn w-100" data-event_key="=">=</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="vendor/jQuery/jquery.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.js"></script>
+
+    <script>
+        let isError = false;
+
+        $(document).on('keydown', function (e) {
+            let key = e.key;
+            if (key === "Enter") key = "=";
+            if (key === "Escape") key = "Delete";
+            let $btn = $('button[data-event_key="' + key + '"]');
+            if ($btn.length) {
+                $btn.addClass('active');
+                processInput(key);
+            }
+        });
+
+        $(document).on('keyup', function (e) {
+            let key = e.key;
+            if (key === "Enter") key = "=";
+            $('button[data-event_key="' + key + '"]').removeClass('active');
+        });
+
+        $('.calc-btn').on('click', function () {
+            processInput($(this).attr('data-event_key'));
+        });
+
+        function processInput(key) {
+            if (!isNaN(key) || key === '.') {
+                appendNumber(key);
+            } else if (['+', '-', '*', '/'].includes(key)) {
+                generateExpression(key);
+            } else if (key === '=') {
+                evaluateExpression();
+            } else if (key === 'Delete') {
+                clearCalc();
+            } else if (key === 'Backspace') {
+                deleteLastChar();
+            } else if (key === 'NumLock') {
+                toggleSign();
+            }
+        }
+
+        function appendNumber(number) {
+            if (isError) { clearCalc(); isError = false; }
+            let current = $("#number_div").html();
+            if (current === "0" && number !== ".") {
+                $("#number_div").html(number);
+            } else {
+                if (number === "." && current.includes(".")) return;
+                $("#number_div").html(current + number);
+            }
+        }
+
+        function generateExpression(operator) {
+            let currentNum = $("#number_div").html();
+            let saved = $("#savedExpression").val();
+            if (saved !== "") {
+                try {
+                    let subtotal = Function('"use strict";return (' + saved + currentNum + ')')();
+                    subtotal = roundResult(subtotal);
+                    currentNum = String(subtotal);
+                    $("#number_div").html(subtotal);
+                } catch (e) {}
+            }
+            let newExpression = currentNum + " " + operator + " ";
+            $("#savedExpression").val(newExpression);
+            $("#expression").html(newExpression);
+            $("#number_div").html("0");
+        }
+
+        function evaluateExpression() {
+            let currentNum = $("#number_div").html();
+            let saved = $("#savedExpression").val();
+            if (saved === "") return;
+            let fullExpression = saved + currentNum;
+            try {
+                let result = Function('"use strict";return (' + fullExpression + ')')();
+                result = roundResult(result);
+                if (!isFinite(result)) {
+                    $("#number_div").html("Can't ÷ by 0");
+                    $("#expression").html(fullExpression + " =");
+                    $("#savedExpression").val("");
+                    isError = true;
+                    return;
+                }
+                $("#expression").html(fullExpression + " =");
+                $("#number_div").html(result);
+                $("#savedExpression").val("");
+                isError = false;
+            } catch (e) {
+                $("#number_div").html("Error");
+                isError = true;
+            }
+        }
+
+        function roundResult(value) {
+            return parseFloat(parseFloat(value).toPrecision(10));
+        }
+
+        function clearCalc() {
+            $("#number_div").html("0");
+            $("#savedExpression").val("");
+            $("#expression").html("&nbsp;");
+            isError = false;
+        }
+
+        function deleteLastChar() {
+            if (isError) { clearCalc(); return; }
+            let current = $("#number_div").html();
+            if (current.length <= 1 || current === "0") {
+                $("#number_div").html("0");
+            } else {
+                $("#number_div").html(current.slice(0, -1));
+            }
+        }
+
+        function toggleSign() {
+            let current = parseFloat($("#number_div").html());
+            if (isNaN(current) || current === 0) return;
+            $("#number_div").html(String(current * -1));
+        }
+    </script>
+</body>
+</html>
