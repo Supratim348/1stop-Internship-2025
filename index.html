@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1Stop Internship 2025</title>
+<link rel="stylesheet" href="Project-1 Expense Tracker/vendor/bootstrap/css/bootstrap.css">
+<link rel="stylesheet" href="Project-1 Expense Tracker/vendor/bootstrap-icons/font/bootstrap-icons.css">
+<link rel="icon" href="Project-2 Calculator/assets/rocket.png">
+<style>
+  * {
+    user-select: none;
+  }
+
+  ::-webkit-scrollbar{
+    display: none;
+  }
+
+  body{
+    background-color: #f1f5f9;
+  }
+  .hero-icon{
+    width: 64px; height: 64px;
+    border-radius: 16px;
+  }
+  .project-icon{
+    width: 44px; height: 44px;
+    object-fit: contain;
+  }
+  .icon-wrap{
+    width: 64px; height: 64px;
+    border-radius: 14px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .project-card{
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    text-decoration: none;
+    color: inherit;
+    display:block;
+    height: 100%;
+  }
+  .project-card:hover{
+    transform: translateY(-4px);
+    box-shadow: 0 0.75rem 1.5rem rgba(0,0,0,0.08) !important;
+    color: inherit;
+  }
+  .open-link{
+    color: var(--bs-primary);
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-light bg-white border-bottom sticky-top py-3">
+    <div class="container">
+      <a href="#" class="navbar-brand d-flex align-items-center fw-bold">
+        <i class="bi bi-grid-fill text-primary me-2"></i>
+        1Stop Internship 2025
+      </a>
+      <a href="https://github.com/Supratim348/1stop-Internship-2025.git" target="_blank" class="btn btn-outline-secondary btn-sm">
+        <i class="bi bi-github me-1"></i>View on GitHub
+      </a>
+    </div>
+  </nav>
+
+  <div class="container py-5">
+
+    <!-- Hero -->
+    <div class="text-center mx-auto mb-5" style="max-width: 600px;">
+      <h1 class="fw-bold mb-3">Internship Projects</h1>
+      <p class="text-muted fs-5 mb-0">
+        Three small web apps built during the 1Stop Internship — pick a project below to open it.
+      </p>
+    </div>
+
+    <!-- Project Cards -->
+    <div class="row g-4">
+
+      <div class="col-12 col-md-4">
+        <a class="project-card card shadow-sm border-0 h-100" href="Project-1 Expense Tracker/index.html">
+          <div class="card-body p-4 d-flex flex-column">
+            <div class="icon-wrap bg-success bg-opacity-10 mb-3">
+              <img src="Project-1 Expense Tracker/assets/money-bag.png" class="project-icon" alt="Expense Tracker">
+            </div>
+            <h5 class="fw-bold mb-2">Expense Tracker</h5>
+            <p class="text-muted small mb-4">
+              Log expenses, track your cumulative spend, and review a detailed transaction history.
+            </p>
+            <div class="mt-auto d-flex align-items-center justify-content-between">
+              <span class="badge bg-light text-secondary border">Project 1</span>
+              <span class="open-link small">Open <i class="bi bi-arrow-right ms-1"></i></span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-12 col-md-4">
+        <a class="project-card card shadow-sm border-0 h-100" href="Project-2 Calculator/index.html">
+          <div class="card-body p-4 d-flex flex-column">
+            <div class="icon-wrap bg-primary bg-opacity-10 mb-3">
+              <img src="Project-2 Calculator/assets/calculator.png" class="project-icon" alt="Calculator">
+            </div>
+            <h5 class="fw-bold mb-2">Calculator</h5>
+            <p class="text-muted small mb-4">
+              A clean, fully-functional on-screen calculator for everyday arithmetic.
+            </p>
+            <div class="mt-auto d-flex align-items-center justify-content-between">
+              <span class="badge bg-light text-secondary border">Project 2</span>
+              <span class="open-link small">Open <i class="bi bi-arrow-right ms-1"></i></span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-12 col-md-4">
+        <a class="project-card card shadow-sm border-0 h-100" href="Project-3 To Do List/index.html">
+          <div class="card-body p-4 d-flex flex-column">
+            <div class="icon-wrap bg-warning bg-opacity-10 mb-3">
+              <img src="Project-3 To Do List/assets/to-do-list-2.png" class="project-icon" alt="TaskMaster Pro">
+            </div>
+            <h5 class="fw-bold mb-2">TaskMaster Pro</h5>
+            <p class="text-muted small mb-4">
+              Add, complete, and manage your daily tasks in a simple to-do list.
+            </p>
+            <div class="mt-auto d-flex align-items-center justify-content-between">
+              <span class="badge bg-light text-secondary border">Project 3</span>
+              <span class="open-link small">Open <i class="bi bi-arrow-right ms-1"></i></span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="text-center text-muted small mt-5 pt-4 border-top">
+      Built with HTML, CSS, JavaScript &amp; Bootstrap — 1Stop Internship 2025
+    </div>
+
+  </div>
+
+</body>
+</html>
