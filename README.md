@@ -47,4 +47,4 @@ For educational/internship purposes.
 
 ## Certificate
 
-![Certificate](Project-1 Expense Tracker/assets/Internship_Certificate.jpg)
+![Certificate](Project-1%20Expense%20Tracker/assets/Internship_Certificate.jpg)
