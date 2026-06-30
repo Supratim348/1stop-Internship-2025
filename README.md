@@ -40,6 +40,7 @@ No build step or dependencies to install — every project runs directly in the 
     ├── assets/
     └── vendor/
 ```
+
 ## License
 
 For educational/internship purposes.
