@@ -5,13 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TaskMaster Pro</title>
     <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.css">
+    <link rel="icon" href="assets/to-do-list-2.png">
     <style>
-        * { user-select: none; }
-        body { background-color: #f1f5f9; }
+        * { 
+            user-select: none; 
+        }
+        body { 
+            background-color: #f1f5f9; 
+        }
     </style>
 </head>
 <body>
-
     <div class="container pb-5">
 
         <!-- Header -->
@@ -186,8 +190,6 @@
             $("#taskTableBody").html(html);
         }
 
-        // FIX: "done" tasks are now archived to a separate completedTasks list
-        // instead of being silently deleted with no record.
         function markAsDone(index) {
             var storage = JSON.parse(localStorage.getItem('taskStorage') || '[]');
             var completed = JSON.parse(localStorage.getItem('completedTasks') || '[]');
@@ -224,8 +226,7 @@
             dataArr.forEach(i => task[i.name] = i.value);
 
             var storage = JSON.parse(localStorage.getItem('taskStorage') || '[]');
-            // FIX: taskIndex from serializeArray() is a string; coerce to a number
-            // before using it as an array index to avoid silent mismatches.
+
             var idx = parseInt(task.taskIndex, 10);
             if (isNaN(idx) || idx < 0 || idx >= storage.length) return;
 
